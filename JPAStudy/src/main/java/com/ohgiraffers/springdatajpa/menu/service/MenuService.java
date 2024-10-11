@@ -37,4 +37,9 @@ public class MenuService {
                 .map(m -> modelMapper.map(m, MenuDTO.class))
                 .toList();
     }
+
+    @Transactional
+    public void deleteMenu(Integer menuCode) {
+        menuRepository.deleteById(menuCode);
+    }
 }
