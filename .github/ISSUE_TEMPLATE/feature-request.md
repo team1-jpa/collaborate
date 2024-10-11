@@ -1,6 +1,6 @@
 ---
-name: Select by
-about: 메뉴 선택 조회
+name: Feature request
+about: 새로운 기능 추가 또는 기존 기능 수정에 대한 요청
 title: ''
 labels: ''
 assignees: ''
