@@ -8,10 +8,10 @@ public class MenuDTO {
     private int categoryCode;
     private String orderableStatus;
 
-    public MenuDTO() {}
+    public MenuDTO() {
+    }
 
     public MenuDTO(int menuCode, String menuName, int menuPrice, int categoryCode, String orderableStatus) {
-        super();
         this.menuCode = menuCode;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
