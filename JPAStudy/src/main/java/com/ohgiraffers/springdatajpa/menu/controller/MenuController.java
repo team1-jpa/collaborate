@@ -46,4 +46,18 @@ public class MenuController {
 
         return "redirect:/menu/list";
     }
+
+    @GetMapping("/querymethod")
+    public void queryMethodPage() {}
+
+    @GetMapping("/search")
+    public String findByMenuPrice(@RequestParam Integer menuPrice, Model model) {
+
+        List<MenuDTO> menuList = menuService.findByMenuPrice(menuPrice);
+
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("menuPrice", menuPrice);
+
+        return "menu/searchResult";
+    }
 }
