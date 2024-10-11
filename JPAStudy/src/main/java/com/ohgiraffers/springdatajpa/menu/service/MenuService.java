@@ -23,11 +23,16 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final ModelMapper modelMapper;
 
-
-    @Autowired
     public MenuService(MenuRepository menuRepository, ModelMapper modelMapper) {
         this.menuRepository = menuRepository;
         this.modelMapper = modelMapper;
+    }
+
+    public MenuDTO findMenuByCode(int menuCode) {
+
+        Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalArgumentException::new);
+
+        return modelMapper.map(menu, MenuDTO.class);
     }
 
     public List<MenuDTO> findMenuList() {
@@ -56,6 +61,23 @@ public class MenuService {
 
         Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalArgumentException::new);
         return modelMapper.map(menu, MenuDTO.class);
+
+    }
+
+
+    public List<MenuDTO> findByMenuPrice(Integer menuPrice) {
+
+        List<Menu> menuList = menuRepository.findByMenuPriceGreaterThan(menuPrice);
+
+        return menuList
+                .stream()
+                .map(menu -> modelMapper.map(menu, MenuDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteMenu(Integer menuCode) {
+        menuRepository.deleteById(menuCode);
 
     }
 }
