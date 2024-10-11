@@ -27,6 +27,13 @@ public class MenuService {
         this.modelMapper = modelMapper;
     }
 
+    public MenuDTO findMenuByCode(int menuCode) {
+
+        Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalArgumentException::new);
+
+        return modelMapper.map(menu, MenuDTO.class);
+    }
+
     public List<MenuDTO> findMenuList() {
         List<Menu> menuList = menuRepository.findAll(Sort.by("menuCode").ascending());
 
@@ -36,8 +43,20 @@ public class MenuService {
                 .toList();
     }
 
+
+    public List<MenuDTO> findByMenuPrice(Integer menuPrice) {
+
+        List<Menu> menuList = menuRepository.findByMenuPriceGreaterThan(menuPrice);
+
+        return menuList
+                .stream()
+                .map(menu -> modelMapper.map(menu, MenuDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void deleteMenu(Integer menuCode) {
         menuRepository.deleteById(menuCode);
+
     }
 }
