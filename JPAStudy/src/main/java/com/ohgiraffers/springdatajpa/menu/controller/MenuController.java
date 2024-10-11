@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("/menu")
 public class MenuController {
 
-
     private final MenuService menuService;
 
     public MenuController(MenuService menuService) {
@@ -66,10 +65,6 @@ public class MenuController {
 
         return "menu/searchResult";
     }
-
-
-    @GetMapping("/querymethod")
-    public void queryMethodPage () {}
 
     @GetMapping("/regist")
     public void registpage() {}
