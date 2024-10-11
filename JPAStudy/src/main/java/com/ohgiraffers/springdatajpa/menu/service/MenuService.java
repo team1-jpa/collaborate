@@ -2,14 +2,8 @@ package com.ohgiraffers.springdatajpa.menu.service;
 
 import com.ohgiraffers.springdatajpa.menu.dto.MenuDTO;
 import com.ohgiraffers.springdatajpa.menu.entity.Menu;
-
-import com.ohgiraffers.springdatajpa.category.repository.CategoryRepository;
 import com.ohgiraffers.springdatajpa.menu.repository.MenuRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,18 +44,12 @@ public class MenuService {
 
     }
 
+    @Transactional
     public void modifyMenu(MenuDTO modifyMenu) {
 
         Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode()).orElseThrow(IllegalArgumentException::new);
 
-        foundMenu.setMenuCode(modifyMenu.getMenuCode());
-    }
-
-    public MenuDTO findMenuByCode(int menuCode) {
-
-        Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalArgumentException::new);
-        return modelMapper.map(menu, MenuDTO.class);
-
+        foundMenu.setMenuName(modifyMenu.getMenuName());
     }
 
 
