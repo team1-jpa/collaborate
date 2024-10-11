@@ -6,6 +6,7 @@ import com.ohgiraffers.springdatajpa.menu.entity.Menu;
 import com.ohgiraffers.springdatajpa.category.repository.CategoryRepository;
 import com.ohgiraffers.springdatajpa.menu.repository.MenuRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,5 +37,25 @@ public class MenuService {
                 .stream()
                 .map(m -> modelMapper.map(m, MenuDTO.class))
                 .toList();
+    }
+
+    public void registNewMenu(MenuDTO newMenu) {
+
+        menuRepository.save(modelMapper.map(newMenu, Menu.class));
+
+    }
+
+    public void modifyMenu(MenuDTO modifyMenu) {
+
+        Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode()).orElseThrow(IllegalArgumentException::new);
+
+        foundMenu.setMenuCode(modifyMenu.getMenuCode());
+    }
+
+    public MenuDTO findMenuByCode(int menuCode) {
+
+        Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalArgumentException::new);
+        return modelMapper.map(menu, MenuDTO.class);
+
     }
 }
