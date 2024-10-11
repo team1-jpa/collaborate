@@ -5,11 +5,7 @@ import com.ohgiraffers.springdatajpa.menu.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +13,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
-
 
     private final MenuService menuService;
 
@@ -39,11 +34,10 @@ public class MenuController {
     public String findMenuByCode(@PathVariable int menuCode, Model model) {
 
         MenuDTO menu = menuService.findMenuByCode(menuCode);
-      
+
         model.addAttribute("menu", menu);
-      
+
         return "menu/detail";
-      
     }
 
     @GetMapping("/delete")
@@ -69,5 +63,27 @@ public class MenuController {
         model.addAttribute("menuPrice", menuPrice);
 
         return "menu/searchResult";
+    }
+
+    @GetMapping("/regist")
+    public void registpage() {}
+
+    @PostMapping("/regist")
+    public String registNewMenu(MenuDTO newMenu) {
+
+        menuService.registNewMenu(newMenu);
+
+        return "redirect:/menu/list";
+    }
+
+    @GetMapping("/modify")
+    public void modifyPage () {}
+
+    @PostMapping("/modify")
+    public String modifyMenu(MenuDTO modifyMenu) {
+
+        menuService.modifyMenu(modifyMenu);
+
+        return "redirect:/menu/" + modifyMenu.getMenuCode();
     }
 }
