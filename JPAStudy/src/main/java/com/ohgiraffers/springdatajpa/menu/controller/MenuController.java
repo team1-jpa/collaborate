@@ -25,6 +25,16 @@ public class MenuController {
         this.menuService = menuService;
     }
 
+    @GetMapping("/list")
+    public String list(Model model) {
+
+        List<MenuDTO> menuList = menuService.findMenuList();
+
+        model.addAttribute("menuList", menuList);
+
+        return "/menu/list";
+    }
+
     @GetMapping("/{menuCode}")
     public String findMenuByCode(@PathVariable int menuCode, Model model) {
 
