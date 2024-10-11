@@ -1,6 +1,5 @@
 package com.ohgiraffers.springdatajpa.main.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,7 +11,4 @@ public class MainController {
 
         return "main/main";
     }
-
-	
-	
 }
